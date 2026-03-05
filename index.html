@@ -4,12 +4,130 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      li {
+        list-style: none;
+        margin: 5px;
+      }
+
+      .red,
+      .red1 {
+        background-color: red;
+      }
+
+      .yellow,
+      .yellow1 {
+        background-color: yellow;
+      }
+
+      .green,
+      .green1 {
+        background-color: green;
+        color: white;
+      }
+
+      .purple,
+      .purple1 {
+        background-color: purple;
+        color: white;
+      }
+
+      .pink,
+      .pink1 {
+        background-color: pink;
+      }
+    </style>
   </head>
   <body>
-    <pre>
-      DOM is NOT HTML itself: It’s a live representation of the HTML in memory.
-      JavaScript manipulates the DOM → changes appear instantly on the page.
-      Every HTML element is a node in the DOM tree
-    </pre>
+    <div>
+      <p>
+        DOM is HTML itself It’s a live representation of the HTML in memory.
+        JavaScript manipulates the DOM, changes appear instantly on the page.
+        Every HTML element is a node in the DOM tree
+      </p>
+      <div>
+        <h3>NODE List</h3>
+        <i><b></b></i>
+        <h4>
+          <i><b># querySelectorAll</b></i>
+        </h4>
+        <ul>
+          <li class="pink1">pink</li>
+          <li class="yellow1">yellow</li>
+          <li class="yellow1">yellow</li>
+          <li class="yellow1">yellow</li>
+          <li class="green1">green</li>
+          <li class="red1">red</li>
+          <li class="purple1">purple</li>
+        </ul>
+        <button onclick="pinkToYe()">yellow to pink by queryselector</button>
+        <h3>HTML Collection</h3>
+        <h4>
+          <b><i># byClassName</i></b> and <b><i>byTagName</i></b>
+        </h4>
+        <p>
+          lets say we have asked to change our lists background color to some
+          other color for all items we should use loops for this, example on
+          this
+        </p>
+
+        <ul>
+          <li class="pink">pink</li>
+          <li class="yellow">yellow</li>
+          <li class="yellow">yellow</li>
+          <li class="yellow">yellow</li>
+          <li class="green">green</li>
+          <li class="red">red</li>
+          <li class="purple">purple</li>
+        </ul>
+        <button onclick="yeToPink()">
+          change yellow to pink by class name
+        </button>
+        <p>
+          <b>byClassName</b> and <b>byTagName</b>
+          method uses addressing method this means the values get updated live
+          and checks the previous code that are affected by the change we made
+          so the final result looks like the function that we want to make
+          happens jumping one element
+        </p>
+
+        <h3><b># Solution</b></h3>
+        <p>
+          Solution 1 — Loop backwards When looping backward, index shifting
+          doesn't break things.
+          <pre>          
+              let items =document.getElementsByClassName("yellow"); 
+              for (let i = items.length -1; i >= 0; i--) { 
+              items[i].classList.remove("yellow"); 
+            } 
+          </pre>          
+          Solution 2 — Convert to Array (best practice) Make a static copy first.
+          <pre>
+            let items =[...document.getElementsByClassName("yellow")];
+            items.forEach((el) =>{ el.classList.remove("yellow"); });
+            Now DOM changes won't affect the loop.
+          </pre> 
+        </p>
+      </div>
+    </div>
+
+    <script>
+      let ye = document.getElementsByClassName("yellow");
+      // console.log(ye);
+      function yeToPink() {
+        for (let i = 0; i < ye.length; i++) {
+          let selectedElement = ye[i];
+          selectedElement.className = "pink";
+        }
+      }
+
+      let pi = document.querySelectorAll(".yellow1");
+      function pinkToYe() {
+        for (let j = 0; j < pi.length; j++) {
+          let selectedElement = pi[j];
+          selectedElement.className = "pink";
+        }
+      }
+    </script>
   </body>
 </html>
