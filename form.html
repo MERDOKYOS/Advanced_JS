@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      input {
+        margin-top: 0px;
+        display: block;
+        padding: 3px;
+      }
+      #container {
+        padding: 100px;
+        border: 1px solid blue;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
+      <form action="form.html" id="form" method="get">
+        <!-- <p>Sign Up</p> -->
+        <label for="name">First Name:</label>
+        <input type="text" id="name" /><br />
+        <label for="last">Last Name:</label>
+        <input type="text" id="last" /><br />
+        <label for="email">Email:</label>
+        <input type="email" /><br />
+        <!-- <label for="pass">Password:</label>
+        <input type="password" id="pass" /><br /> -->
+        <button type="submit">Submit</button>
+      </form>
+      <p id="result"></p>
+    </div>
+    <script>
+      let form = document.getElementById("form");
+      let inputValues = document.getElementsByTagName("input");
+      form.addEventListener("submit", validation);
+      function validation(e) {
+        e.preventDefault();
+        alert(inputValues);
+        let error = [];
+        for (let i = 0; i < inputValues.length; i++) {
+          if (inputValues[i].value == 0) {
+            error.push(inputValues[i].getAttribute("id"));
+          }
+        }
+
+        for (let j = 0; j < error.length; j++) {
+          document.getElementById("result").textContent = error[j];
+        }
+      }
+    </script>
+  </body>
+</html>
