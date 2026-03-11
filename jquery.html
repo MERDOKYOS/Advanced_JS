@@ -4,6 +4,160 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <style>
+      .red {
+        background-color: red;
+        margin-bottom: 10px;
+        list-style: none;
+      }
+    </style>
   </head>
-  <body>Jquery Exercise</body>
+  <body>
+    <h1>Jquery Exercise</h1>
+    <pre>
+      Why jQuery is nicer
+
+      -Shorter syntax
+      -CSS-style selectors
+      -Easier to read</pre
+    >
+    <p>It has the most simplest way for selecting elements that is $("")</p>
+    <p id="toggle">click me for toggle effect</p>
+    <ul>
+      <li class="red">Tesla</li>
+      <li class="red">Meta</li>
+      <li class="red">Amazon</li>
+      <li class="red">Microsoft</li>
+    </ul>
+    <p>
+      from this kind of lists with same class as we select using class name it
+      returns multiple elements for this we use filters to handle this kind of
+      problems and example
+    </p>
+    <pre>
+      _first
+      _last
+      _has (for attribute)
+      _contains (for text content)
+      _visible
+      _even
+      _odd 
+      _nth child   etc...
+      _finally hide() and show() methods to get visible elements
+      <pre>
+        we use it in the code like the below one
+        
+        let element = $(".red:first");
+        OR
+        console.log(element.first();)
+      </pre>
+    </pre>
+    <p>Methods to change the contents of an element</p>
+    <pre>
+        - html()
+        - text()
+        - remove()
+
+        we use it like this
+        console.log($("ul").html());
+      </pre
+    >
+
+    <p>methods to add elements</p>
+    <pre>
+      - after()
+      - before()
+      - prepend()
+      - append()
+
+    we slect the element and .methods in the above with ("element");
+    eg 
+    $("li").after('<i>abebe</i>');
+
+    we can use any tag instead of i like the tag for the elements we want to create
+    <pre>
+      for attribute we can use methods like
+
+      -addClass()
+      -removeClass()
+      -css("property","value")
+    </pre> 
+    
+    <pre>Jquery Handling Event
+
+      in Jquery we have a method on() which expects two attributes the first one is the event itself like
+      click, submit, mouseover etc and second one is the function or the action to be done when that event occur.
+
+      eg $("btn").on("click",()=>{
+        alert("button clicked")
+      })
+    </pre>
+    <p id="text">text</p>
+    <button id="btn">click me</button>
+
+    <pre>animation and effects
+      - hide() and show();
+      - toggle() _ yemitay kehone endaytay yemaytay kehone enditay lemadreg
+      - slideUp()
+      - slideDown()
+      - slideToggle()
+
+      - fadeIn()
+      - fadeOut()
+      - fadeToggle()
+
+      - animate()
+      - delay()
+      - stop()
+    </pre>
+
+    <script src="jquery_3_7_1_min.js"></script>
+    <script>
+      let element = $(".red:first");
+      // console.log(element);
+
+      $(".red").css("background-color", "green");
+
+      $("li:contains(Tesla)").css("background-color", "red");
+      $("ul:has(li)").css("color", "black");
+
+      $("li:nth-child(3)").hide();
+
+      $("li:visible").css("background", "purple");
+
+      $("li").show();
+
+      // console.log($("ul").html("<p>abebe</p>"));
+      // $("ul").remove();
+
+      $("ul").prepend("<li class='red'>Apple</li>");
+
+      $("li:nth-child(2)").after("<li class='red'>Samsung</li>");
+
+      // $("#text").on("click",()=>{
+      //   $("#btn").hide()
+      // })
+
+      $("#btn").on("click",function(){
+        $(this).hide()
+      })
+
+      $("#text").on("dblclick",function(){
+        $("#btn").show()
+      })
+
+      $("#toggle").on("click",function(){
+        $("ul").slideToggle();
+      })
+
+      let anim = $("ul");
+
+      setTimeout(()=>{
+        anim.animate({width:"200px",fontsize:"20px",opacity:0.7,},5000);
+        anim.animate({backgroundcolor: "blue"})
+      },5000);
+
+
+    </script>
+  </body> 
 </html>

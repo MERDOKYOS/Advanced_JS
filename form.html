@@ -12,50 +12,76 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        height: 100vh;
       }
       input {
-        margin-top: 0px;
+        margin: 0px;
         display: block;
         padding: 3px;
       }
       #container {
-        padding: 100px;
+        padding: 50px;
         border: 1px solid blue;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
       }
     </style>
   </head>
   <body>
     <div id="container">
+      <h3>Sign IN</h3>
       <form action="form.html" id="form" method="get">
-        <!-- <p>Sign Up</p> -->
         <label for="name">First Name:</label>
-        <input type="text" id="name" /><br />
-        <label for="last">Last Name:</label>
-        <input type="text" id="last" /><br />
+        <input type="text" placeholder="Name" id="name" />
+        <p id="resultName"></p>
         <label for="email">Email:</label>
-        <input type="email" /><br />
-        <!-- <label for="pass">Password:</label>
-        <input type="password" id="pass" /><br /> -->
-        <button type="submit">Submit</button>
+        <input type="email" placeholder="Email" id="email" />
+        <p id="resultEmail"></p>
+        <label for="pass">Password:</label>
+        <input type="password" placeholder="Password" id="pass" />
+        <p id="resultPass"></p>
+        <button type="submit" id="btn">Submit</button>
       </form>
-      <p id="result"></p>
     </div>
     <script>
-      let form = document.getElementById("form");
-      let inputValues = document.getElementsByTagName("input");
-      form.addEventListener("submit", validation);
+      let btn = document.getElementById("btn");
+      let name = document.getElementById("name");
+      let email = document.getElementById("email");
+      let pass = document.getElementById("pass");
+
+      btn.addEventListener("click", validation);
       function validation(e) {
         e.preventDefault();
-        alert(inputValues);
-        let error = [];
-        for (let i = 0; i < inputValues.length; i++) {
-          if (inputValues[i].value == 0) {
-            error.push(inputValues[i].getAttribute("id"));
-          }
+
+        if (name.value.length == 0) {
+          name.setAttribute("placeholder", "Please provide name");
+          name.style.backgroundColor = "red";
         }
 
-        for (let j = 0; j < error.length; j++) {
-          document.getElementById("result").textContent = error[j];
+        if (email.value.length == 0) {
+          email.setAttribute("placeholder", "Please provide email");
+          email.style.backgroundColor = "red";
+        }
+
+        if (pass.value.length == 0) {
+          pass.setAttribute("placeholder", "Please provide password");
+          pass.style.backgroundColor = "red";
+        }
+
+        if (pass.value.length > 0 && pass.value.length <= 7) {
+          pass.setAttribute("placeholder", "Please provide strong password");
+          pass.style.backgroundColor = "red";
+        }
+
+        if (email.value.length > 0 && name.value.length > 0) {
+          name.style.backgroundColor = "white";
+          email.style.backgroundColor = "white";
+        }
+
+        if (pass.value.length >= 8) {
+          pass.style.backgroundColor = "white";
         }
       }
     </script>
