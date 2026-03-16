@@ -1,0 +1,250 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      #cont {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 0px;
+      }
+    </style>
+  </head>
+  <body>
+    <p>Asynchronous Javascript</p>
+
+    <pre>
+      If we use synchronous way to handle logics that take time it blocks the for the
+      other codes below that specific time taking code so we use <i><b>setTimeOut</b></i> function 
+      which accepts two parameters the function to be executed and the time it is going 
+      to be delayed that is Asynchronous
+    </pre>
+
+    <p>How do we use/consume Asynchronous variables in our synchrounous way</p>
+    <pre>
+      if variable gets its value in the asynchronous setTimeout function we use it in synchronous below 
+
+      <h3>1.callback functions</h3>
+
+      function orderSome(eatOrder) {
+        console.log("order your something");
+        setTimeout(() => {
+          const order = "#";
+          console.log(`your ${order} is ready`);
+          eatOrder(order);
+        }, 2000);
+      }
+
+      function eatOrder(order) {
+        console.log(`eat your ${order}`);
+      }
+
+      orderSome(eatOrder);
+      console.log("After callback");
+
+      we access the variables inside the setTimeout using callback function this means the eatOrder() is the callack function.
+
+    <h3> 2.promise</h3>
+      we have fetch method to get information that it accepts site domain as parameter like fetch("https://randomuser.me.api")
+      then we use .then() method on the above fetch("https://randomuser.mr.api").then(
+        function(res){
+          return res.json())
+        }
+
+          full example
+
+          fetch("https://randomuser/.me.api")
+          .then((res) => {
+            res.json().then((data) => {
+              console.log(data);
+            });
+          })
+          .catch((err) => {
+            console.log("something went wrong ");
+          });
+
+      <h3> 3.Async await</h3>
+
+      it is the latest way to deal with this kind of situations
+          adding asyc keword at the start of the function makes the function async function
+
+          also we use await in specific code that takes time
+
+    </pre>
+    <div id="cont"></div>
+    <script>
+      // console.log("starting point");
+      // function delay(seconds) {
+      //   let start = Date.now();
+      //   let x = true;
+
+      //   while (x) {
+      //     let current = Date.now();
+
+      //     if (current - start >= seconds * 1000) {
+      //       console.log("HI");
+      //       x = false;
+      //     }
+      //   }
+      // }
+      // delay(2);
+      // console.log("ending point");
+
+      // setTimeout(() => {
+      //   console.log("hi");
+      // }, 5000);
+
+      // console.log("After the Asynchronous");
+
+      // function orderPizza(callback) {
+      //   console.log("order pizza");
+      //   setTimeout(() => {
+      //     const pizza = "@";
+      //     console.log(`your ${pizza} is ready`);
+      //     callback(pizza);
+      //   }, 3000);
+      // }
+
+      // function eatOrder(pizza) {
+      //   console.log(`eat your ${pizza}`);
+      // }
+
+      // orderPizza(eatOrder);
+      // console.log("call friend");
+
+      // function orderSome(eatOrder) {
+      //   console.log("order your something");
+      //   setTimeout(() => {
+      //     const order = "#";
+      //     console.log(`your ${order} is ready`);
+      //     eatOrder(order);
+      //   }, 0);
+      // }
+
+      // function eatOrder(order) {
+      //   console.log(`eat your ${order}`);
+      // }
+
+      // orderSome(eatOrder);
+      // console.log("call friend");
+
+      // fetch("https://randomuser.me/api")
+      //   .then((res) => res.json())
+      //   .then((data) => console.log(data.results[0].name.first))
+      //   .catch((err) => console.log("something went wrong "));
+
+      // async function loadData() {
+      //   try {
+      //     let response = await fetch("https://randomuser.me.api");
+      //     let data = await response.json();
+      //     let user = data.results[0];
+      //     console.log(user);
+      //   } catch (error) {
+      //     console.log(error, "something get wrong");
+      //   }
+      // }
+
+      // loadData();
+
+      // function alarm(person, delay) {
+      //   return new Promise((resolve, reject) => {
+      //     if (delay <= 0) {
+      //       reject("a value cant be zero or negative");
+      //     }
+      //     setTimeout(() => {
+      //       resolve(`wake up, ${person}`);
+      //     }, delay);
+      //   });
+      // }
+
+      // alarm("suu", 1000)
+      //   .then((res) => console.log(res))
+      //   .catch((error) => console.log(error));
+
+      // async function getUp() {
+      //   try {
+      //     let re = await alarm("ÄBEBE", 2000);
+      //     console.log(re);
+      //   } catch (error) {
+      //     console.log(error);
+      //   }
+      // }
+
+      // getUp();
+
+      // all over example
+
+      // let contentInHtml = document.getElementById("cont");
+
+      // fetch("https://randomuser.me/api")
+      //   .then((res) => res.json())
+      //   .then((data) => {
+      //     let user = data.results[0];
+      //     contentInHtml.innerHTML = `
+      //     <img src=${user.picture.large} alt="User photo">
+      //     <p>${user.name.first} ${user.name.last}</p>
+      //     <p>${user.email}</p>
+      //     <p>${user.location.city} ${user.location.country}</p>
+      //   `;
+      //   });
+
+      function orderPizza(callback) {
+        console.log("Ordering pizza...");
+
+        setTimeout(() => {
+          const pizza = "🍕";
+          console.log("Pizza is ready");
+          callback(pizza);
+        }, 2000);
+      }
+
+      function payForPizza(pizza, callback) {
+        console.log("Paying for the pizza...");
+
+        setTimeout(() => {
+          const payment = "💳 payment done";
+          console.log("Payment completed");
+          callback(payment);
+        }, 2000);
+      }
+
+      function deliverPizza(payment, callback) {
+        console.log("Preparing delivery...");
+
+        setTimeout(() => {
+          const delivery = "🚚 pizza delivered";
+          console.log("Pizza delivered to your house");
+          callback(delivery);
+        }, 2000);
+      }
+
+      function eatPizza(delivery, callback) {
+        console.log("Opening the pizza box...");
+
+        setTimeout(() => {
+          console.log("Eating the pizza 😋");
+          callback();
+        }, 2000);
+      }
+
+      function washPlate() {
+        console.log("Washing the plate 🧼");
+      }
+
+      // --- Start the pizza process ---
+      orderPizza(function (pizza) {
+        payForPizza(pizza, function (payment) {
+          deliverPizza(payment, function (delivery) {
+            eatPizza(delivery, function () {
+              washPlate();
+            });
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
