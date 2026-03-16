@@ -7,7 +7,130 @@ const columns = canvas.width / scale;
 
 let snake = [];
 
-ctx.fillStyle="#fff";
-ctx.strokeStyle = "pink";
-ctx.fillRect(10,10,scale,scale);
-ctx.strokeRect(10,10,scale,scale);
+
+
+snake[0] = {
+  x : (Math.floor(Math.random()*columns))*scale,
+  y : (Math.floor(Math.random()*rows))*scale
+};
+
+food = {
+  x : (Math.floor(Math.random() * columns))*scale,
+  y : (Math.floor(Math.random() * rows)) * scale
+};
+
+//the starting direction for our game
+let num = Math.floor((Math.random() * 8));
+let d;
+
+if(num < 8){
+  d = "right";
+}
+if(num < 6){
+  d= "left";
+}
+if(num < 4){
+  d = "up"; 
+}
+if(num < 2){
+  d = "down";
+}
+
+
+document.onkeydown = direction;
+
+function direction(event){
+  let key = event.keyCode;
+
+  if(key==37 && d!="right"){
+    d="left";
+  }
+  if(key ==38 && d!="down"){
+    d="up";
+  }
+  if(key==39 && d!="left"){
+    d="right";
+  }
+  if(key==40 && d!="up"){
+    d="down"
+  }
+}
+
+let playGame = setInterval(draw,100);
+
+function draw(){
+
+  ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+  for(let i=0; i<snake.length; i++){
+    ctx.fillStyle= "#fff";
+    ctx.strokeStyle = "pink";
+    ctx.fillRect(snake[i].x,snake[i].y,scale,scale);
+    ctx.strokeRect(snake[i].x,snake[i].y,scale,scale);
+  }   
+
+  // Draw food
+  ctx.fillStyle = "#fff";
+  ctx.strokeStyle="red";
+  ctx.fillRect(food.x,food.y,scale,scale);
+  ctx.strokeRect(food.x,food.y,scale,scale);
+
+// Old head position
+  let snakeX = snake[0].x;
+  let snakeY = snake[0].y;
+
+  if(d=="left") snakeX -=scale;
+  if(d=="up") snakeY -=scale;
+  if(d=="right") snakeX +=scale;
+  if(d=="down") snakeY +=scale;
+
+  // making the snake game iterative when the height exceeds the maximum value to start to zero
+  if(snakeX >= canvas.width){
+    snakeX = 0;
+  }
+  
+  if(snakeY >= canvas.height){
+    snakeY = 0;
+  }
+  
+  if(snakeX < 0){
+    snakeX = canvas.width - scale;
+  }
+  
+  if(snakeY < 0){
+    snakeY = canvas.height - scale;
+  }
+
+  if( snakeX == food.x && snakeY == food.y){
+    food={
+      x : (Math.floor(Math.random() * columns))* scale,
+      y : (Math.floor(Math.random() * rows))* scale
+    }
+  }else{
+    snake.pop();
+  }
+
+  let newHead = {
+    x : snakeX,
+    y : snakeY
+  }
+  if(eatSelf(newHead,snake)){
+    clearInterval(playGame)
+  }
+
+  snake.unshift(newHead);
+
+  function eatSelf(head,array){
+    for(let i=0;i<array.length;i++){
+      if(head.x==array[i].x && head.y==array[i].y){
+        alert("Game Over");
+        location.reload();
+        return true;
+      }
+    }
+    return false;
+  }
+}
+
+
+
