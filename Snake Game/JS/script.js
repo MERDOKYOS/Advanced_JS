@@ -79,10 +79,13 @@ function draw(){
   let snakeX = snake[0].x;
   let snakeY = snake[0].y;
 
+  let dir = ["left","right","up","down"];
+  dir[(Math.floor(Math.random()*4)]
+
   if(d=="left") snakeX -=scale;
   if(d=="up") snakeY -=scale;
   if(d=="right") snakeX +=scale;
-  if(d=="down") snakeY +=scale;
+  if(d==( "down") snakeY +=scale;
 
   // making the snake game iterative when the height exceeds the maximum value to start to zero
   if(snakeX >= canvas.width){
