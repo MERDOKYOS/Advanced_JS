@@ -6,8 +6,7 @@ const rows = canvas.height / scale;
 const columns = canvas.width / scale;
 
 let snake = [];
-
-
+let score1=0;
 
 snake[0] = {
   x : (Math.floor(Math.random()*columns))*scale,
@@ -56,22 +55,22 @@ function direction(event){
   }
 }
 
-let playGame = setInterval(draw,100);
+let playGame = setInterval(draw,150);
 
 function draw(){
 
   ctx.clearRect(0, 0, canvas.width, canvas.height)
 
   for(let i=0; i<snake.length; i++){
-    ctx.fillStyle= "#fff";
-    ctx.strokeStyle = "pink";
+    ctx.fillStyle= "black";
+    ctx.strokeStyle = "white";
     ctx.fillRect(snake[i].x,snake[i].y,scale,scale);
     ctx.strokeRect(snake[i].x,snake[i].y,scale,scale);
   }   
 
   // Draw food
-  ctx.fillStyle = "#fff";
-  ctx.strokeStyle="red";
+  ctx.fillStyle = "blue";
+  ctx.strokeStyle="white";
   ctx.fillRect(food.x,food.y,scale,scale);
   ctx.strokeRect(food.x,food.y,scale,scale);
 
@@ -80,12 +79,12 @@ function draw(){
   let snakeY = snake[0].y;
 
   let dir = ["left","right","up","down"];
-  dir[(Math.floor(Math.random()*4)]
+  dir[(Math.floor(Math.random() * 4))];
 
   if(d=="left") snakeX -=scale;
   if(d=="up") snakeY -=scale;
   if(d=="right") snakeX +=scale;
-  if(d==( "down") snakeY +=scale;
+  if(d=="down") snakeY +=scale;
 
   // making the snake game iterative when the height exceeds the maximum value to start to zero
   if(snakeX >= canvas.width){
@@ -105,6 +104,7 @@ function draw(){
   }
 
   if( snakeX == food.x && snakeY == food.y){
+    score1++;
     food={
       x : (Math.floor(Math.random() * columns))* scale,
       y : (Math.floor(Math.random() * rows))* scale
@@ -118,16 +118,40 @@ function draw(){
     y : snakeY
   }
   if(eatSelf(newHead,snake)){
-    clearInterval(playGame)
+    clearInterval(playGame);
   }
 
   snake.unshift(newHead);
 
   function eatSelf(head,array){
-    for(let i=0;i<array.length;i++){
+    for(let i = 0; i < array.length; i++){
       if(head.x==array[i].x && head.y==array[i].y){
-        alert("Game Over");
-        location.reload();
+        let cont = document.querySelector(".active");
+        let main = document.querySelector(".main");
+        let highScore = document.getElementById("high");
+        let score = document.getElementById("score");
+
+        let hign = localStorage.getItem("highScore") || 0;
+        if(score1 > hign){
+          localStorage.setItem("highScore",score1)
+          hign = score1;
+        }
+
+        cont.style.display = "flex";
+        cont.style.height = "100vh";
+        main.style.display = "none";
+
+        score.textContent = `Your Score is ${score1}`;
+        highScore.textContent = `High Score is ${hign}`;
+
+        document.querySelector(".btn").addEventListener("click",()=>{
+          location.reload();
+        }) 
+        document.addEventListener("keydown",(event)=>{
+          if(event.key==="Enter"){
+          location.reload();
+          }
+        })
         return true;
       }
     }
