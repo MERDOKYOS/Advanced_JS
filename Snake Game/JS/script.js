@@ -141,8 +141,8 @@ function draw(){
         cont.style.height = "100vh";
         main.style.display = "none";
 
-        score.textContent = `Your Score is ${score1}`;
-        highScore.textContent = `High Score is ${hign}`;
+        score.textContent = `Score: ${score1}`;
+        highScore.textContent = `High Score: ${hign}`;
 
         document.querySelector(".btn").addEventListener("click",()=>{
           location.reload();
